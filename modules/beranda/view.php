@@ -311,6 +311,11 @@
                 }
                 ?>
                 </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="5">Tidak temukan barang yang dibutuhkan? <a href="?module=form_pengajuan_baru" class="">Ajukan barang baru</a></td>
+                  </tr>
+                </tfoot>
               </table>
             </div>
           </div><!-- /.box-body -->

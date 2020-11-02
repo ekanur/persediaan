@@ -1,4 +1,3 @@
-<!-- Aplikasi Persediaan Barang dengan PHP7 dan MySQLi
 <?php
 session_start();
 
@@ -7,6 +6,7 @@ require_once "../../config/database.php";
 
 // fungsi untuk pengecekan status login user 
 // jika user belum login, alihkan ke halaman login dan tampilkan pesan = 1
+// echo "asd";exit;
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
     echo "<meta http-equiv='refresh' content='0; url=index.php?alert=1'>";
 }

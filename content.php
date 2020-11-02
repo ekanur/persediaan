@@ -29,6 +29,9 @@ else {
 	elseif ($_GET['module'] == 'form_pengajuan') {
 		include "modules/pengajuan/form.php";
 	}
+	elseif ($_GET['module'] == 'form_pengajuan_baru') {
+		include "modules/pengajuan/form_baru.php";
+	}
 
 	// jika halaman konten yang dipilih form barang, panggil file form barang
 	elseif ($_GET['module'] == 'form_barang') {
