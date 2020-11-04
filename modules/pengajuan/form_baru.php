@@ -23,7 +23,7 @@ $query = mysqli_query($mysqli, "SELECT nama_satuan FROM is_satuan");
         <div class="col-md-12">
             <div class="box box-primary">
                 <!-- form start -->
-                <form role="form" class="form-horizontal" action="modules/pengajuan/proses.php?act=insert" method="POST">
+                <form role="form" class="form-horizontal" action="modules/pengajuan/proses.php?act=baru" method="POST">
                     <div class="box-body">
                         <input type="hidden" class="form-control" name="id_user" autocomplete="off" value="<?php echo $_SESSION['id_user']; ?>" readonly required>
                         <input type="hidden" class="form-control" name="tanggal" autocomplete="off" value="<?php echo date("Y-m-d"); ?>" readonly required>
@@ -41,7 +41,7 @@ $query = mysqli_query($mysqli, "SELECT nama_satuan FROM is_satuan");
                             </div>
                             <label class="col-sm-1 control-label">Stok</label>
                             <div class="col-sm-2">
-                                <select name="id_satuan" id="" class="form-control" required>
+                                <select name="satuan" id="" class="form-control" required>
                                 <?php
                                     while ($data_satuan = mysqli_fetch_assoc($query)) {
                                         echo "<option value=\"$data_satuan[id_satuan]\"> $data_satuan[nama_satuan] </option>";
