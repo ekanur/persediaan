@@ -20,7 +20,7 @@ else {
             $jumlah     = mysqli_real_escape_string($mysqli, trim($_POST['jumlah']));
             $alasan    = mysqli_real_escape_string($mysqli, trim($_POST['alasan']));
             $tanggal_pengajuan  = mysqli_real_escape_string($mysqli, trim($_POST['tanggal']));
-            $nama_satuan  = mysqli_real_escape_string($mysqli, trim($_POST['satuan']));
+            $nama_satuan  = mysqli_real_escape_string($mysqli, trim($_POST['satuanku']));
 
             // perintah query untuk menyimpan data ke tabel barang
             $query = mysqli_query($mysqli, "INSERT INTO pengajuan(id_barang,id_user,jumlah,alasan,tanggal_pengajuan,nama_satuan) 

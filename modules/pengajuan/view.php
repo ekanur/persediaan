@@ -105,7 +105,7 @@
                       <td width='150'>$data[jumlah] $data[nama_satuan]</td>
                       <td width='150'>$data[alasan]</td>
                       <td width='150'>$a</td>
-                      <td class='text-warning' width='150'>$approve</td>
+                      <td class='text-danger' width='150'>$approve</td>
                     </tr>";
                                                                         $no++;
                                                                 }

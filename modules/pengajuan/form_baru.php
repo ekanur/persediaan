@@ -41,10 +41,10 @@ $query = mysqli_query($mysqli, "SELECT nama_satuan FROM is_satuan");
                             </div>
                             <label class="col-sm-1 control-label">Stok</label>
                             <div class="col-sm-2">
-                                <select name="id_satuan" id="" class="form-control" required>
+                                <select name="satuanku" class="form-control" required>
                                 <?php
                                     while ($data_satuan = mysqli_fetch_assoc($query)) {
-                                        echo "<option value=\"$data_satuan[id_satuan]\"> $data_satuan[nama_satuan] </option>";
+                                        echo "<option>$data_satuan[id_satuan] $data_satuan[nama_satuan]</option>";
                                     }
                                 ?>
                                 </select>
