@@ -58,6 +58,13 @@
               Data barang berhasil dihapus.
             </div>";
                                 }
+                                elseif ($_GET['alert'] == 4) {
+                                        echo "<div class='alert alert-success alert-dismissable'>
+              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              <h4>  <i class='icon fa fa-check-circle'></i> Sukses!</h4>
+              Pengajuan Barang Telah disetujui.
+            </div>";
+                                }
                                 ?>
 
                                 <div class="box box-primary">
@@ -74,15 +81,18 @@
                                                                         <th class="center">Alasan</th>
                                                                         <th class="center">Tanggal Pengajuan</th>
                                                                         <th class="center">Status</th>
+                                                                        <th class="center">Oleh</th>
                                                                 </tr>
                                                         </thead>
                                                         <!-- tampilan tabel body -->
                                                         <tbody>
                                                                 <?php
+                                                                $by_user = ($_SESSION['hak_akses'] != "Super Admin")? " WHERE a.id_user = ".$_SESSION['id_user']: null;
+
                                                                 $no = 1;
-                                                                $query = mysqli_query($mysqli, "SELECT a.id_barang,a.jumlah,a.nama_satuan,a.alasan,a.tanggal_pengajuan,a.is_approve,b.nama_barang
+                                                                $query = mysqli_query($mysqli, "SELECT a.id, a.id_barang,a.jumlah,a.nama_satuan,a.alasan,a.tanggal_pengajuan,a.is_approve,b.nama_barang, c.nama_user
                                             FROM pengajuan as a INNER JOIN is_barang as b    
-                                            ON a.id_barang=b.id_barang ORDER BY id_barang DESC")            // fungsi query untuk menampilkan data dari tabel barang
+                                            ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user=c.id_user ".$by_user." ORDER BY id_barang DESC")            // fungsi query untuk menampilkan data dari tabel barang
 
                                                                         or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
 
@@ -90,14 +100,18 @@
                                                                 while ($data = mysqli_fetch_assoc($query)) {
 
                                                                         $a = date("Y-m-d", strtotime($data['tanggal_pengajuan']));
-                                                                        $isapp = [];
-                                                                        if ($data['is_approve'] == 0) {
-                                                                                array_push($isapp, "Not Approve");
-                                                                        } elseif ($data['is_approve'] == 1) {
-                                                                                array_push($isapp, "Approve");
-                                                                        }
-                                                                        $approve = implode("", $isapp);
-                                                                        // menampilkan isi tabel dari database ke tabel di aplikasi
+                                                                        // $isapp = [];
+                                                                        // if ($data['is_approve'] == 0) {
+                                                                        //         array_push($isapp, "Not Approve");
+                                                                        // } elseif ($data['is_approve'] == 1) {
+                                                                        //         array_push($isapp, "Approve");
+                                                                        // }
+                                                                        // $approve = implode("", $isapp);
+                                                                $approve = ($data['is_approve']==0)?"Not Approved":"Approved";
+                                                                
+                                                                if($_SESSION['hak_akses'] == 'Super Admin'){
+                                                                        $approve = ($data['is_approve']==0)?"<a href='modules/pengajuan/proses.php?act=setuju&id_pengajuan=$data[id]' class='btn btn-success'>Setujui</a>":"Sudah disetujui";
+                                                                }                                                                        // menampilkan isi tabel dari database ke tabel di aplikasi
                                                                         echo "<tr>
                       <td width='30' class='center'>$no</td>
                       <td width='80' class='center'>$data[id_barang]</td>
@@ -105,8 +119,62 @@
                       <td width='150'>$data[jumlah] $data[nama_satuan]</td>
                       <td width='150'>$data[alasan]</td>
                       <td width='150'>$a</td>
-                      <td class='text-danger' width='150'>$approve</td>
+                      <td width='150'>$approve</td>
+                      <td width='150'>$data[nama_user]</td>
+
                     </tr>";
+                                                                        $no++;
+                                                                }
+                                                                ?>
+                                                        </tbody>
+                                                </table>
+                                        </div><!-- /.box-body -->
+                                </div>
+                                <div class="box box-primary">
+                                        <div class="box-body">
+                                                <h3>Pengajuan Barang Baru</h3>
+                                                <!-- tampilan tabel barang -->
+                                                <table id="dataTables2" class="table table-bordered table-striped table-hover">
+                                                        <!-- tampilan tabel header -->
+                                                        <thead>
+                                                                <tr>
+                                                                        <th class="center">No.</th>
+                                                                        <th class="center">Nama Barang</th>
+                                                                        <th class="center">Jumlah Pengajuan</th>
+                                                                        <th class="center">Alasan</th>
+                                                                        <th class="center">Tanggal Pengajuan</th>
+                                                                        <th class="center">Status</th>
+                                                                        <th class="center">Oleh</th>
+                                                                </tr>
+                                                        </thead>
+                                                        <!-- tampilan tabel body -->
+                                                        <tbody>
+                                                                <?php
+                                                                $no = 1;
+                                                                $query = mysqli_query($mysqli, "SELECT a.*, b.nama_user FROM pengajuan_baru as a INNER JOIN is_users as b ON a.id_user = b.id_user".$by_user." ORDER BY id DESC")            // fungsi query untuk menampilkan data dari tabel barang
+
+                                                                        or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
+
+                                                                // tampilkan data
+                                                                while ($data = mysqli_fetch_assoc($query)) {
+
+                                                                        $a = date("Y-m-d", strtotime($data['tanggal_pengajuan']));
+                                                                        // $isapp = [];
+                                                                        $approve = ($data['is_approve']==0)?"Not Approved":"Approved";
+                                                                
+                                                                        if($_SESSION['hak_akses'] == 'Super Admin'){
+                                                                                $approve = ($data['is_approve']==0)?"<a href='modules/pengajuan/proses.php?act=setuju_baru&id_pengajuan=$data[id]' class='btn btn-success'>Setujui</a>":"Sudah disetujui";
+                                                                        } 
+                                                                        // menampilkan isi tabel dari database ke tabel di aplikasi
+                                                                        echo "<tr>
+                                                                                <td width='30' class='center'>$no</td>
+                                                                                <td width='180'>$data[nama_barang]</td>
+                                                                                <td width='150'>$data[jumlah] $data[nama_satuan]</td>
+                                                                                <td width='150'>$data[alasan]</td>
+                                                                                <td width='150'>$a</td>
+                                                                                <td width='150'>$approve</td>
+                                                                                <td width='150'>$data[nama_user]</td>
+                                                                                </tr>";
                                                                         $no++;
                                                                 }
                                                                 ?>
@@ -121,12 +189,9 @@
 
         <script>
                 $(document).ready(function() {
-                        $('#dataTables1').DataTable({
+                        $('table').DataTable({
                                 "scrollX": true
                         });
-                });
-                $(document).ready(function() {
-                        $('#dataTables1').DataTable();
                 });
         </script>
 </body>

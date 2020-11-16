@@ -44,11 +44,13 @@ ON a.id_jenis=b.id_jenis AND a.id_satuan=c.id_satuan ORDER BY id_barang DESC");
               </div>";
       }
       ?>
-  <div class="halo">
-    <a href="/Persediaan/login.php"><button class="btn btn-info">Login</button></a>
-  </div>
+  
   <div class="container">
-    <table class="table table-striped table-bordered data">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="login-box-body">
+        <h3 class="login-box-msg text-center">Persediaan Barang</h3>
+        <table class="table table-striped table-bordered data">
       <thead>
         <tr>
           <th>No.</th>
@@ -81,6 +83,17 @@ ON a.id_jenis=b.id_jenis AND a.id_satuan=c.id_satuan ORDER BY id_barang DESC");
         ?>
         </tbody>
     </table>
+    Silakan <a href="login.php">Login</a> untuk menggunakan Aplikasi.
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-lg-12">
+        </div>
+    </div>
   </div>
 </body>
 <script type="text/javascript">

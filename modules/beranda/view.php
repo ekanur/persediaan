@@ -8,223 +8,123 @@
 * Phone        : +62-813-7778-3334
 -->
 
-<!-- Content Header (Page header) -->
-<section class="content-header">
-  <h1>
-    <i class="fa fa-home icon-title"></i> Beranda
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="?module=home"><i class="fa fa-home"></i> Beranda</a></li>
-  </ol>
-</section>
-
-<!-- Main content -->
-<section class="content">
-  <div class="row">
-    <div class="col-lg-12 col-xs-12">
-      <div class="alert alert-info alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <p style="font-size:15px">
-          <i class="icon fa fa-user"></i> Selamat datang <strong><?php echo $_SESSION['nama_user']; ?></strong> di Aplikasi Persediaan Barang Gudang Material.
-        </p>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <i class="fa fa-home icon-title"></i> Beranda
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="?module=home"><i class="fa fa-home"></i> Beranda</a></li>
+    </ol>
+  </section>
+  
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-lg-12 col-xs-12">
+        <div class="alert alert-info alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <p style="font-size:15px">
+            <i class="icon fa fa-user"></i> Selamat datang <strong><?php echo $_SESSION['nama_user']; ?></strong> di Aplikasi Persediaan Barang Fakultas Sastra Univ. Negeri Malang.
+          </p>        
+        </div>
       </div>
     </div>
-  </div>
+   
+    <!-- Small boxes (Stat box) -->
+    <!-- /.row -->
 
-  <!-- Small boxes (Stat box) -->
-  <div class="row">
-    <?php
-    if ($_SESSION['hak_akses'] == 'Super Admin') { ?>
-      <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div style="background-color:#00c0ef;color:#fff" class="small-box">
-          <div class="inner">
-            <?php
-            // fungsi query untuk menampilkan data dari tabel barang
-            $query = mysqli_query($mysqli, "SELECT COUNT(id_barang) as jumlah FROM is_barang")
-              or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
-
-            // tampilkan data
-            $data = mysqli_fetch_assoc($query);
-            ?>
-            <h3><?php echo $data['jumlah']; ?></h3>
-            <p>Data Barang</p>
+    <div class="row">
+      <div class="col-lg-12 col-xs-12">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-info-circle icon-title"></i> Pengajuan Permintaan Barang</h3>
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-box-tool" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
           </div>
-          <div class="icon">
-            <i class="fa fa-folder"></i>
-          </div>
-          <a href="?module=form_barang&form=add" class="small-box-footer" title="Tambah Data" data-toggle="tooltip"><i class="fa fa-plus"></i></a>
-        </div>
-      </div><!-- ./col -->
-
-      <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div style="background-color:#00a65a;color:#fff" class="small-box">
-          <div class="inner">
-            <?php
-            // fungsi query untuk menampilkan data dari tabel barang masuk
-            $query = mysqli_query($mysqli, "SELECT COUNT(id_barang_masuk) as jumlah FROM is_barang_masuk")
-              or die('Ada kesalahan pada query tampil Data Barang Masuk: ' . mysqli_error($mysqli));
-
-            // tampilkan data
-            $data = mysqli_fetch_assoc($query);
-            ?>
-            <h3><?php echo $data['jumlah']; ?></h3>
-            <p>Barang Masuk</p>
-          </div>
-          <div class="icon">
-            <i class="fa fa-sign-in"></i>
-          </div>
-          <a href="?module=form_barang_masuk&form=add" class="small-box-footer" title="Tambah Data" data-toggle="tooltip"><i class="fa fa-plus"></i></a>
-        </div>
-      </div><!-- ./col -->
-
-      <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div style="background-color:#f39c12;color:#fff" class="small-box">
-          <div class="inner">
-            <?php
-            // fungsi query untuk menampilkan data dari tabel barang Keluar
-            $query = mysqli_query($mysqli, "SELECT COUNT(id_barang_keluar) as jumlah FROM is_barang_keluar")
-              or die('Ada kesalahan pada query tampil Data Barang Keluar: ' . mysqli_error($mysqli));
-
-            // tampilkan data
-            $data = mysqli_fetch_assoc($query);
-            ?>
-            <h3><?php echo $data['jumlah']; ?></h3>
-            <p>Barang Keluar</p>
-          </div>
-          <div class="icon">
-            <i class="fa fa-sign-out"></i>
-          </div>
-          <a href="?module=form_barang_keluar&form=add" class="small-box-footer" title="Tambah Data" data-toggle="tooltip"><i class="fa fa-plus"></i></a>
-        </div>
-      </div><!-- ./col -->
-
-      <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div style="background-color:#dd4b39;color:#fff" class="small-box">
-          <div class="inner">
-            <?php
-            // fungsi query untuk menampilkan data dari tabel user
-            $query = mysqli_query($mysqli, "SELECT COUNT(id_user) as jumlah FROM is_users")
-              or die('Ada kesalahan pada query tampil Data User: ' . mysqli_error($mysqli));
-
-            // tampilkan data
-            $data = mysqli_fetch_assoc($query);
-            ?>
-            <h3><?php echo $data['jumlah']; ?></h3>
-            <p>User</p>
-          </div>
-          <div class="icon">
-            <i class="fa fa-user"></i>
-          </div>
-          <a href="?module=form_user&form=add" class="small-box-footer" title="Tambah Data" data-toggle="tooltip"><i class="fa fa-plus"></i></a>
-        </div>
-      </div><!-- ./col -->
-    <?php
-    } elseif ($_SESSION['hak_akses'] == 'Manajer') { ?>
-      <div class="col-lg-4 col-xs-6">
-        <!-- small box -->
-        <div style="background-color:#00c0ef;color:#fff" class="small-box">
-          <div class="inner">
-            <?php
-            // fungsi query untuk menampilkan data dari tabel barang
-            $query = mysqli_query($mysqli, "SELECT COUNT(id_barang) as jumlah FROM is_barang")
-              or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
-
-            // tampilkan data
-            $data = mysqli_fetch_assoc($query);
-            ?>
-            <h3><?php echo $data['jumlah']; ?></h3>
-            <p>Data Barang</p>
-          </div>
-          <div class="icon">
-            <i class="fa fa-folder"></i>
-          </div>
-        </div>
-      </div><!-- ./col -->
-
-      <div class="col-lg-4 col-xs-6">
-        <!-- small box -->
-        <div style="background-color:#00a65a;color:#fff" class="small-box">
-          <div class="inner">
-            <?php
-            // fungsi query untuk menampilkan data dari tabel barang masuk
-            $query = mysqli_query($mysqli, "SELECT COUNT(id_barang_masuk) as jumlah FROM is_barang_masuk")
-              or die('Ada kesalahan pada query tampil Data Barang Masuk: ' . mysqli_error($mysqli));
-
-            // tampilkan data
-            $data = mysqli_fetch_assoc($query);
-            ?>
-            <h3><?php echo $data['jumlah']; ?></h3>
-            <p>Barang Masuk</p>
-          </div>
-          <div class="icon">
-            <i class="fa fa-sign-in"></i>
-          </div>
-        </div>
-      </div><!-- ./col -->
-
-      <div class="col-lg-4 col-xs-6">
-        <!-- small box -->
-        <div style="background-color:#f39c12;color:#fff" class="small-box">
-          <div class="inner">
-            <?php
-            // fungsi query untuk menampilkan data dari tabel barang Keluar
-            $query = mysqli_query($mysqli, "SELECT COUNT(id_barang_keluar) as jumlah FROM is_barang_keluar")
-              or die('Ada kesalahan pada query tampil Data Barang Keluar: ' . mysqli_error($mysqli));
-
-            // tampilkan data
-            $data = mysqli_fetch_assoc($query);
-            ?>
-            <h3><?php echo $data['jumlah']; ?></h3>
-            <p>Barang Keluar</p>
-          </div>
-          <div class="icon">
-            <i class="fa fa-sign-out"></i>
-          </div>
-        </div>
-      </div><!-- ./col -->
-    <?php
-    }
-    ?>
-
-  </div><!-- /.row -->
-
-  <br>
-
-  <div class="row">
-    <div class="col-lg-12 col-xs-12">
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title"><i class="fa fa-info-circle icon-title"></i> Pengajuan Permintaan Barang</h3>
-          <div class="box-tools pull-right">
-            <button class="btn btn-box-tool" data-widget="collapse">
-              <i class="fa fa-minus"></i>
-            </button>
-            <button class="btn btn-box-tool" data-widget="remove">
-              <i class="fa fa-times"></i>
-            </button>
-          </div>
-        </div>
-        <div class="box-body">
-          <div class="table-responsive">
-            <!-- tampilan tabel barang -->
-            <table id="dataTables1" class="table no-margin">
-              <!-- tampilan tabel header -->
-              <thead>
+          <div class="box-body">
+            <div class="table-responsive">
+              <!-- tampilan tabel barang -->
+              <?php
+                if ($_SESSION['hak_akses']=='Super Admin') {
+              ?>
+                <table class="table no-margin">
+                <!-- tampilan tabel header -->
+                <thead>
                 <tr>
-                  <th class="center">No.</th>
-                  <th class="center">ID Barang</th>
-                  <th>Nama Barang</th>
-                  <th>Stok</th>
-                  <th></th>
+                        <th class="center">No.</th>
+                        <th class="center">Client</th>
+                        <th class="center">Nama Barang</th>
+                        <th class="center">Jumlah Pengajuan</th>
+                        <th class="center">Alasan</th>
+                        <th class="center">Tanggal Pengajuan</th>
+                        <th></th>
                 </tr>
-              </thead>
-              <!-- tampilan tabel body -->
-              <tbody>
+                </thead>
+                <!-- tampilan tabel body -->
+                <tbody>
                 <?php
+              $no = 1;
+              $query = mysqli_query($mysqli, "SELECT a.id, a.id_barang,a.jumlah,a.nama_satuan,a.alasan,a.tanggal_pengajuan,a.is_approve,b.nama_barang, c.nama_user
+FROM pengajuan as a INNER JOIN is_barang as b    
+ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user ORDER BY id_barang DESC")            // fungsi query untuk menampilkan data dari tabel barang
+
+                      or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
+
+              // tampilkan data
+              while ($data = mysqli_fetch_assoc($query)) {
+
+                      $a = date("Y-m-d", strtotime($data['tanggal_pengajuan']));
+                      // $isapp = [];
+                      // if ($data['is_approve'] == 0) {
+                      //         array_push($isapp, "Not Approve");
+                      // } elseif ($data['is_approve'] == 1) {
+                      //         array_push($isapp, "Approve");
+                      // }
+                      // $approve = implode("", $isapp);
+                      // menampilkan isi tabel dari database ke tabel di aplikasi
+                      echo "<tr>
+<td width='30' class='center'>$no</td>
+<td width='80' class='center'>$data[nama_user]</td>
+<td width='180'>$data[nama_barang]</td>
+<td width='150'>$data[jumlah] $data[nama_satuan]</td>
+<td width='150'>$data[alasan]</td>
+<td width='150'>$a</td>
+<td><a class='btn btn-success' href='?module=pengajuan&act=setujui&id=$data[id]'>Setujui</a></td>
+</tr>";
+                      $no++;
+              }
+              ?>
+                </tbody>
+                
+              </table>
+              <?php
+                }
+              ?>
+
+              <?php
+              if ($_SESSION['hak_akses']=='Gudang') {
+              ?>
+              <table class="table no-margin">
+                <!-- tampilan tabel header -->
+                <thead>
+                  <tr>
+                    <th class="center">No.</th>
+                    <th class="center">ID Barang</th>
+                    <th>Nama Barang</th>
+                    <th>Stok</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <!-- tampilan tabel body -->
+                <tbody>
+                <?php  
                 $no = 1;
                 // fungsi query untuk menampilkan data dari tabel barang
                 $query = mysqli_query($mysqli, "SELECT is_barang.*, is_satuan.nama_satuan  from is_barang inner join is_satuan on is_barang.id_satuan = is_satuan.id_satuan ORDER BY id_barang DESC")
@@ -243,16 +143,20 @@
                   $no++;
                 }
                 ?>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="5">Tidak temukan barang yang dibutuhkan? <a href="?module=form_pengajuan_baru" class="">Ajukan barang baru</a></td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        </div><!-- /.box-body -->
-      </div><!-- /.box -->
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="5">Tidak temukan barang yang dibutuhkan? <a href="?module=form_pengajuan_baru" class="">Ajukan barang baru</a></td>
+                  </tr>
+                </tfoot>
+              </table>
+              <?php
+              }
+              ?>
+            </div>
+          </div><!-- /.box-body -->
+        </div><!-- /.box -->
+      </div>
     </div>
   </div>
 

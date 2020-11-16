@@ -59,9 +59,9 @@ if ($_GET['form']=='add') { ?>
                 <label class="col-sm-2 control-label">Hak Akses</label>
                 <div class="col-sm-5">
                   <select class="form-control" name="hak_akses" required>
-                    <option value=""></option>
+                    <!-- <option value=""></option>
                     <option value="Super Admin">Super Admin</option>
-                    <option value="Manajer">Manajer</option>
+                    <option value="Manajer">Manajer</option> -->
                     <option value="Gudang">Gudang</option>
                   </select>
                 </div>
