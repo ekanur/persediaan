@@ -1,8 +1,8 @@
 <?php
 // deklarasi parameter koneksi database
 $server   = "localhost";
-$username = "pma";
-$password = "123";
+$username = "root";
+$password = "";
 $database = "i_persediaan";
 
 // koneksi database

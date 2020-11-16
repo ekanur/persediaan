@@ -121,6 +121,7 @@
                       <td width='150'>$a</td>
                       <td width='150'>$approve</td>
                       <td width='150'>$data[nama_user]</td>
+
                     </tr>";
                                                                         $no++;
                                                                 }

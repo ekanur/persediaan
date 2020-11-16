@@ -45,6 +45,7 @@ $query = mysqli_query($mysqli, "SELECT nama_satuan FROM is_satuan");
                                 <?php
                                     while ($data_satuan = mysqli_fetch_assoc($query)) {
                                         echo "<option value=\"$data_satuan[nama_satuan]\"> $data_satuan[nama_satuan] </option>";
+
                                     }
                                 ?>
                                 </select>
