@@ -7,6 +7,16 @@ if (isset($_GET['id'])) {
 $query = mysqli_query($mysqli, "SELECT stok,nama_barang,nama_satuan FROM `is_barang` INNER JOIN is_satuan ON is_barang.id_satuan = is_satuan.id_satuan WHERE id_barang = '$id'");
 $row = mysqli_fetch_assoc($query);
 ?>
+<style>
+    p {
+        display: inline-block;
+    }
+
+    #mantap {
+        border: 3px solid black;
+    }
+</style>
+
 <section class="content-header">
     <h1>
         <i class="fa fa-edit icon-title"></i> Pengajuan Barang
@@ -17,7 +27,7 @@ $row = mysqli_fetch_assoc($query);
         <li class="active">Form </li>
     </ol>
 </section>
-
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -28,7 +38,7 @@ $row = mysqli_fetch_assoc($query);
                         <input type="hidden" class="form-control" name="id_user" autocomplete="off" value="<?php echo $_SESSION['id_user']; ?>" readonly required>
                         <input type="hidden" class="form-control" name="tanggal" autocomplete="off" value="<?php echo date("Y-m-d"); ?>" readonly required>
                         <input type="hidden" class="form-control" name="approve" autocomplete="off" value="" readonly required>
-                        <input type="hidden" class="form-control" name="satuan" autocomplete="off" value="<?php echo $row['nama_satuan']; ?>" readonly required>
+                        <input type="hidden" class="form-control" name="satuanku" autocomplete="off" value="<?php echo $row['nama_satuan']; ?>" readonly required>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">ID Barang</label>
                             <div class="col-sm-5">
@@ -41,14 +51,19 @@ $row = mysqli_fetch_assoc($query);
                                 <input type="text" class="form-control" name="nama_barang" autocomplete="off" value="<?php echo $row['nama_barang']; ?>" readonly required>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Jumlah Barang</label>
-                            <div class="col-sm-5">
-                                <input type="number" class="form-control" name="jumlah" min="1" placeholder="Maksimal Pengajuan <?php echo $row['stok']; ?> <?php echo $row['nama_satuan']; ?>" max="<?php echo $row['stok']; ?>" aria-describedby="basic-addon2">
+                        <div x-data="{stok:''}" class="form-group">
+                            <label class="col-sm-2">Jumlah Barang</label>
+                            <div class="col-sm-3">
+                                <input x-model="stok" type="number" class="form-control" name="jumlah" min="1" max="<?= $row['stok'] ?>" placeholder="Stok Saat Ini  <?php echo $row['stok']; ?> <?php echo $row['nama_satuan']; ?>" max="<?php echo $row['stok']; ?>" aria-describedby="basic-addon2">
                             </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="basic-addon2"><?php echo $row['nama_satuan']; ?></span>
+                            <label class="col-sm-1">Stok</label>
+                            <div class="col-sm-2 ">
+                                    <p x-text="<?= $row['stok'] ?> - stok"><?php echo $row['nama_satuan']; ?></p>
+                                    <p> </p><?= $row['nama_satuan']; ?>
                             </div>
+                            <!-- <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2"></span>
+                            </div> -->
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="exampleFormControlTextarea1">Alasan Pengajuan </label>

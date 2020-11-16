@@ -205,16 +205,16 @@ if ($_SESSION['hak_akses']=='Gudang') { ?>
 	// jika menu Barang Masuk dipilih, menu Barang Masuk aktif
 	
 	// jika menu ubah password dipilih, menu ubah password aktif
-	if ($_GET["module"]=="password") { ?>
+	if ($_GET["module"]=="pengajuan") { ?>
 		<li class="active">
-			<a href="?module=password"><i class="fa fa-lock"></i> Ubah Password</a>
+			<a href="?module=pengajuan"><i class="fa fa-lock"></i> Pengajuan Barang</a>
 		</li>
 	<?php
 	}
 	// jika tidak, menu ubah password tidak aktif
 	else { ?>
 		<li>
-			<a href="?module=password"><i class="fa fa-lock"></i> Ubah Password</a>
+			<a href="?module=pengajuan"><i class="fa fa-lock"></i>Pengajuan Barang</a>
 		</li>
 	<?php
 	}
@@ -223,4 +223,7 @@ if ($_SESSION['hak_akses']=='Gudang') { ?>
 	<!--sidebar menu end-->
 <?php
 }
+  
+
+	
 ?>

@@ -128,10 +128,10 @@ ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user ORD
                 $no = 1;
                 // fungsi query untuk menampilkan data dari tabel barang
                 $query = mysqli_query($mysqli, "SELECT is_barang.*, is_satuan.nama_satuan  from is_barang inner join is_satuan on is_barang.id_satuan = is_satuan.id_satuan ORDER BY id_barang DESC")
-                                                or die('Ada kesalahan pada query tampil Data Barang: '.mysqli_error($mysqli));
+                  or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
 
                 // tampilkan data
-                while ($data = mysqli_fetch_assoc($query)) { 
+                while ($data = mysqli_fetch_assoc($query)) {
                   // menampilkan isi tabel dari database ke tabel di aplikasi
                   echo "<tr>
                           <td width='20' class='center'>$no</td>
@@ -158,49 +158,50 @@ ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user ORD
         </div><!-- /.box -->
       </div>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="col-lg-12 col-xs-12">
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-info-circle icon-title"></i> Stok Barang telah mencapai batas minimum</h3>
-            <div class="box-tools pull-right">
-              <button class="btn btn-box-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-              </button>
-              <button class="btn btn-box-tool" data-widget="remove">
-                <i class="fa fa-times"></i>
-              </button>
-            </div>
+  <div class="row">
+    <div class="col-lg-12 col-xs-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><i class="fa fa-info-circle icon-title"></i> Stok Barang telah mencapai batas minimum</h3>
+          <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-box-tool" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
           </div>
-          <div class="box-body">
-            <div class="table-responsive">
-              <!-- tampilan tabel barang -->
-              <table class="table no-margin">
-                <!-- tampilan tabel header -->
-                <thead>
-                  <tr>
-                    <th class="center">No.</th>
-                    <th class="center">ID Barang</th>
-                    <th>Nama Barang</th>
-                    <th>Jenis Barang</th>
-                    <th>Stok</th>
-                    <th>Satuan</th>
-                  </tr>
-                </thead>
-                <!-- tampilan tabel body -->
-                <tbody>
-                <?php  
+        </div>
+        <div class="box-body">
+          <div class="table-responsive">
+            <!-- tampilan tabel barang -->
+            <table class="table no-margin">
+              <!-- tampilan tabel header -->
+              <thead>
+                <tr>
+                  <th class="center">No.</th>
+                  <th class="center">ID Barang</th>
+                  <th>Nama Barang</th>
+                  <th>Jenis Barang</th>
+                  <th>Stok</th>
+                  <th>Satuan</th>
+                </tr>
+              </thead>
+              <!-- tampilan tabel body -->
+              <tbody>
+                <?php
                 $no = 1;
                 // fungsi query untuk menampilkan data dari tabel barang
                 $query = mysqli_query($mysqli, "SELECT a.id_barang,a.nama_barang,a.id_jenis,a.id_satuan,a.stok,b.id_jenis,b.nama_jenis,c.id_satuan,c.nama_satuan 
                                                 FROM is_barang as a INNER JOIN is_jenis_barang as b INNER JOIN is_satuan as c
                                                 ON a.id_jenis=b.id_jenis AND a.id_satuan=c.id_satuan 
                                                 WHERE a.stok<=10 ORDER BY id_barang DESC")
-                                                or die('Ada kesalahan pada query tampil Data Barang: '.mysqli_error($mysqli));
+                  or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
 
                 // tampilkan data
-                while ($data = mysqli_fetch_assoc($query)) { 
+                while ($data = mysqli_fetch_assoc($query)) {
                   // menampilkan isi tabel dari database ke tabel di aplikasi
                   echo "<tr>
                           <td width='20' class='center'>$no</td>
@@ -213,11 +214,22 @@ ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user ORD
                   $no++;
                 }
                 ?>
-                </tbody>
-              </table>
-            </div>
-          </div><!-- /.box-body -->
-        </div><!-- /.box -->
-      </div>
+              </tbody>
+            </table>
+          </div>
+        </div><!-- /.box-body -->
+      </div><!-- /.box -->
     </div>
-  </section><!-- /.content -->
+  </div>
+</section><!-- /.content -->
+
+<script>
+                $(document).ready(function() {
+                        $('#dataTables1').DataTable({
+                                "scrollX": true
+                        });
+                });
+                $(document).ready(function() {
+                        $('#dataTables1').DataTable();
+                });
+        </script>
