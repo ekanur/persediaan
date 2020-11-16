@@ -44,7 +44,7 @@ $query = mysqli_query($mysqli, "SELECT nama_satuan FROM is_satuan");
                                 <select name="satuan" id="" class="form-control" required>
                                 <?php
                                     while ($data_satuan = mysqli_fetch_assoc($query)) {
-                                        echo "<option value=\"$data_satuan[id_satuan]\"> $data_satuan[nama_satuan] </option>";
+                                        echo "<option value=\"$data_satuan[nama_satuan]\"> $data_satuan[nama_satuan] </option>";
                                     }
                                 ?>
                                 </select>
@@ -74,11 +74,11 @@ $query = mysqli_query($mysqli, "SELECT nama_satuan FROM is_satuan");
                                 <select class="chosen-select" name="jenis" data-placeholder="-- Pilih Jenis Barang --" autocomplete="off" required>
                                     <option value=""></option>
                                     <?php
-                                    $query_jenis = mysqli_query($mysqli, "SELECT * FROM is_jenis_barang ORDER BY id_jenis ASC")
-                                        or die('Ada kesalahan pada query tampil jenis barang: ' . mysqli_error($mysqli));
-                                    while ($data_jenis = mysqli_fetch_assoc($query_jenis)) {
-                                        echo "<option value=\"$data_jenis[id_jenis]\"> $data_jenis[nama_jenis] </option>";
-                                    }
+                                    // $query_jenis = mysqli_query($mysqli, "SELECT * FROM is_jenis_barang ORDER BY id_jenis ASC")
+                                    //     or die('Ada kesalahan pada query tampil jenis barang: ' . mysqli_error($mysqli));
+                                    // while ($data_jenis = mysqli_fetch_assoc($query_jenis)) {
+                                    //     echo "<option value=\"$data_jenis[id_jenis]\"> $data_jenis[nama_jenis] </option>";
+                                    // }
                                     ?>
                                 </select>
                             </div>
@@ -90,11 +90,11 @@ $query = mysqli_query($mysqli, "SELECT nama_satuan FROM is_satuan");
                                 <select class="chosen-select" name="satuan" data-placeholder="-- Pilih Satuan Barang --" autocomplete="off" required>
                                     <option value=""></option>
                                     <?php
-                                    $query_satuan = mysqli_query($mysqli, "SELECT * FROM is_satuan ORDER BY id_satuan ASC")
-                                        or die('Ada kesalahan pada query tampil satuan: ' . mysqli_error($mysqli));
-                                    while ($data_satuan = mysqli_fetch_assoc($query_satuan)) {
-                                        echo "<option value=\"$data_satuan[id_satuan]\"> $data_satuan[nama_satuan] </option>";
-                                    }
+                                    // $query_satuan = mysqli_query($mysqli, "SELECT * FROM is_satuan ORDER BY id_satuan ASC")
+                                    //     or die('Ada kesalahan pada query tampil satuan: ' . mysqli_error($mysqli));
+                                    // while ($data_satuan = mysqli_fetch_assoc($query_satuan)) {
+                                    //     echo "<option value=\"$data_satuan[id_satuan]\"> $data_satuan[nama_satuan] </option>";
+                                    // }
                                     ?>
                                 </select>
                             </div>

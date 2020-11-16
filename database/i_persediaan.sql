@@ -192,7 +192,19 @@ CREATE TABLE `pengajuan` (
   `nama_satuan` varchar(45) DEFAULT NULL,
   `is_approve` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `pengajuan_baru` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_user` int NOT NULL,
+  `nama_barang` varchar(25) NOT NULL,
+  `jumlah` int NOT NULL,
+  `nama_satuan` varchar(45) DEFAULT NULL,
+  `alasan` varchar(100) DEFAULT NULL,
+  `tanggal_pengajuan` timestamp NOT NULL,
+  `is_approve` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables

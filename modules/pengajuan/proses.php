@@ -43,10 +43,10 @@ else {
             $alasan    = mysqli_real_escape_string($mysqli, trim($_POST['alasan']));
             $tanggal_pengajuan  = mysqli_real_escape_string($mysqli, trim($_POST['tanggal']));
             $nama_satuan  = mysqli_real_escape_string($mysqli, trim($_POST['satuan']));
-
+            // var_dump($id_satuan);exit;
             // perintah query untuk menyimpan data ke tabel barang
-            $query = mysqli_query($mysqli, "INSERT INTO pengajuan(id_barang,id_user,jumlah,alasan,tanggal_pengajuan,nama_satuan) 
-                                            VALUES('$id_barang','$id_user','$jumlah','$alasan','$tanggal_pengajuan','$nama_satuan')")
+            $query = mysqli_query($mysqli, "INSERT INTO pengajuan_baru(id_user, nama_barang, jumlah, nama_satuan, alasan, tanggal_pengajuan) 
+                                            VALUES('$id_user','$nama_barang','$jumlah', '$nama_satuan','$alasan','$tanggal_pengajuan')")
                 or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
 
             // cek query
@@ -55,6 +55,28 @@ else {
                 header("location: ../../main.php?module=pengajuan&alert=1");
             }
         }
+    }
+    elseif($_GET['act'] == "setuju"){
+        $id = $_GET["id_pengajuan"];
+        $query = mysqli_query($mysqli, "update pengajuan set is_approve = 1 where id = ".$id)
+                or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
+
+            // cek query
+            if ($query) {
+                // jika berhasil tampilkan pesan berhasil simpan data
+                header("location: ../../main.php?module=pengajuan&alert=4");
+            }
+    }
+    elseif($_GET['act'] == "setuju_baru"){
+        $id = $_GET["id_pengajuan"];
+        $query = mysqli_query($mysqli, "update pengajuan_baru set is_approve = 1 where id = ".$id)
+                or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
+
+            // cek query
+            if ($query) {
+                // jika berhasil tampilkan pesan berhasil simpan data
+                header("location: ../../main.php?module=pengajuan&alert=4");
+            }
     }
 }
 ?>
