@@ -182,6 +182,30 @@ INSERT INTO `is_users` (`id_user`, `username`, `nama_user`, `password`, `email`,
 (2, 'sekret', 'Nanda', '202cb962ac59075b964b07152d234b70', 'Nanda@gmail.com', '0817845645645', 'kadina.png', 'Manajer', 'aktif', '2016-08-01 08:42:53', '2020-10-01 04:06:25'),
 (3, 'Client', 'CLient', '202cb962ac59075b964b07152d234b70', 'Client@gmail.com', '0565645645646', '1469574126_users-10.png', 'Gudang', 'aktif', '2017-03-11 14:41:46', '2020-09-30 05:21:35');
 
+CREATE TABLE `pengajuan` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_barang` varchar(25) NOT NULL,
+  `id_user` int NOT NULL,
+  `jumlah` int NOT NULL,
+  `alasan` varchar(100) DEFAULT NULL,
+  `tanggal_pengajuan` timestamp NOT NULL,
+  `nama_satuan` varchar(45) DEFAULT NULL,
+  `is_approve` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `pengajuan_baru` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_user` int NOT NULL,
+  `nama_barang` varchar(25) NOT NULL,
+  `jumlah` int NOT NULL,
+  `nama_satuan` varchar(45) DEFAULT NULL,
+  `alasan` varchar(100) DEFAULT NULL,
+  `tanggal_pengajuan` timestamp NOT NULL,
+  `is_approve` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
