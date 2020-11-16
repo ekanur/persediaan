@@ -197,7 +197,7 @@ if ($_SESSION['hak_akses']=='Gudang') { ?>
 	
 		<li class= "<?php if($_GET["module"]=="pengajuan" || $_GET["module"]=="form_pengajuan") { echo "active";} ?> treeview">
 				<a href="?module=pengajuan">
-				  <i class="fa fa-file-text"></i> <span>Pengajuan Barang</span> <i class="fa fa-angle-left pull-right"></i>
+				  <i class="fa fa-file-text"></i> <span>Pengajuan Barang</span> 
 				</a>
 		  </li>
 		<?php
@@ -205,16 +205,16 @@ if ($_SESSION['hak_akses']=='Gudang') { ?>
 	// jika menu Barang Masuk dipilih, menu Barang Masuk aktif
 	
 	// jika menu ubah password dipilih, menu ubah password aktif
-	if ($_GET["module"]=="pengajuan") { ?>
+	if ($_GET["module"]=="password") { ?>
 		<li class="active">
-			<a href="?module=pengajuan"><i class="fa fa-lock"></i> Pengajuan Barang</a>
+			<a href="?module=password"><i class="fa fa-lock"></i> Ubah Password</a>
 		</li>
 	<?php
 	}
 	// jika tidak, menu ubah password tidak aktif
 	else { ?>
 		<li>
-			<a href="?module=pengajuan"><i class="fa fa-lock"></i>Pengajuan Barang</a>
+			<a href="?module=password"><i class="fa fa-lock"></i>Ubah Password</a>
 		</li>
 	<?php
 	}
