@@ -158,7 +158,6 @@ ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user ORD
         </div><!-- /.box -->
       </div>
     </div>
-  </div>
 
   <div class="row">
     <div class="col-lg-12 col-xs-12">
@@ -221,6 +220,7 @@ ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user ORD
       </div><!-- /.box -->
     </div>
   </div>
+  
 </section><!-- /.content -->
 
 <script>
