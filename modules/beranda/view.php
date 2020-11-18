@@ -73,10 +73,16 @@
               $no = 1;
               $query = mysqli_query($mysqli, "SELECT a.id, a.id_barang,a.jumlah,a.nama_satuan,a.alasan,a.tanggal_pengajuan,a.is_approve,b.nama_barang, c.nama_user
 FROM pengajuan as a INNER JOIN is_barang as b    
-ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user ORDER BY id_barang DESC")            // fungsi query untuk menampilkan data dari tabel barang
+ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user where a.is_approve =0 ORDER BY id_barang DESC")            // fungsi query untuk menampilkan data dari tabel barang
 
                       or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
-
+              if(mysqli_num_rows($query) == 0){
+                ?>
+                <tr>
+                  <td colspan="7" class="text-center">Tidak ada pengajuan Barang</td>
+                </tr>
+                <?php
+              }
               // tampilkan data
               while ($data = mysqli_fetch_assoc($query)) {
 
@@ -158,7 +164,6 @@ ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user ORD
         </div><!-- /.box -->
       </div>
     </div>
-  </div>
 
   <div class="row">
     <div class="col-lg-12 col-xs-12">
