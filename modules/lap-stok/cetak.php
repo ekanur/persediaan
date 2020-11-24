@@ -1,92 +1,42 @@
+
 <?php
-session_start();
-ob_start();
+// memanggil library FPDF
+require('/opt/lampp/htdocs/persediaan/fpdf182/fpdf.php');
+// intance object dan memberikan pengaturan halaman PDF
+$pdf = new FPDF('l','mm','A5');
+// membuat halaman baru
+$pdf->AddPage();
+// setting jenis font yang akan digunakan
+$pdf->SetFont('Arial','B',20);
+$pdf->Cell(190,7,'Laporan Stok Barang Gudang',0,4,'C');
 
-// Panggil koneksi database.php untuk koneksi database
-require_once "../../config/database.php";
-// panggil fungsi untuk format tanggal
-include "../../config/fungsi_tanggal.php";
+// Memberikan space kebawah agar tidak terlalu rapat
+$pdf->Cell(10,7,'',0,1);
 
-$hari_ini = date("d-m-Y");
 
+$pdf->SetFont('Arial','B',10);
+$pdf->SetFillColor(0,0,0);
+$pdf->Cell(9,6,'NO',1,0);
+$pdf->Cell(23,6,'ID BARANG',1,0);
+$pdf->Cell(60,6,'BARANG',1,0);
+$pdf->Cell(45,6,'KATEGORI',1,0);
+$pdf->Cell(23,6,'STOK',1,0);
+$pdf->Cell(17,6,'SATUAN',1,1);
+
+$pdf->SetFont('Arial','',10);
 $no = 1;
-// fungsi query untuk menampilkan data dari tabel transaksi
-$query = mysqli_query($mysqli, "SELECT a.id_barang,a.nama_barang,a.id_jenis,a.id_satuan,a.stok,b.id_jenis,b.nama_jenis,c.id_satuan,c.nama_satuan 
-                                FROM is_barang as a INNER JOIN is_jenis_barang as b INNER JOIN is_satuan as c
-                                ON a.id_jenis=b.id_jenis AND a.id_satuan=c.id_satuan ORDER BY id_barang DESC")
-                                or die('Ada kesalahan pada query tampil Data Barang: '.mysqli_error($mysqli));
-$count  = mysqli_num_rows($query);
-?>
-<html xmlns="http://www.w3.org/1999/xhtml"> <!-- Bagian halaman HTML yang akan konvert -->
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-        <title>Laporan Stok Barang</title>
-        <link rel="stylesheet" type="text/css" href="../../assets/css/laporan.css" />
-    </head>
-    <body>
-        <div id="title">
-            LAPORAN STOK BARANG GUDANG MATERIAL 
-        </div>
-        
-        <hr><br>
+include '/opt/lampp/htdocs/persediaan/config/database.php';
+$mahasiswa = mysqli_query($mysqli, "SELECT *,is_jenis_barang.nama_jenis,is_satuan.nama_satuan FROM `is_barang` INNER JOIN is_jenis_barang ON is_barang.id_jenis = is_jenis_barang.id_jenis INNER JOIN is_satuan ON is_barang.id_satuan = is_satuan.id_satuan");
+while ($row = mysqli_fetch_array($mahasiswa)){
+    $pdf->Cell(9,6,$no++,1,0);
+    $pdf->Cell(23,6,$row['id_barang'],1,0);
+    $pdf->Cell(60,6,$row['nama_barang'],1,0);
+    $pdf->Cell(45,6,$row['nama_jenis'],1,0);
+    $pdf->Cell(23,6,$row['stok'],1,0);
+    $pdf->Cell(17,6,$row['nama_satuan'],1,1);
 
-        <div id="isi">
-            <table width="100%" border="0.3" cellpadding="0" cellspacing="0">
-                <thead style="background:#e8ecee">
-                    <tr class="tr-title">
-                        <th height="20" align="center" valign="middle">No.</th>
-                        <th height="20" align="center" valign="middle">ID Barang</th>
-                        <th height="20" align="center" valign="middle">Nama Barang</th>
-                        <th height="20" align="center" valign="middle">Jenis Barang</th>
-                        <th height="20" align="center" valign="middle">Stok</th>
-                        <th height="20" align="center" valign="middle">Satuan</th>
-                    </tr>
-                </thead>
-                <tbody>
-        <?php
-        // tampilkan data
-        while ($data = mysqli_fetch_assoc($query)) {
-            // menampilkan isi tabel dari database ke tabel di aplikasi
-            echo "  <tr>
-                        <td width='40' height='13' align='center' valign='middle'>$no</td>
-                        <td width='80' height='13' align='center' valign='middle'>$data[id_barang]</td>
-                        <td style='padding-left:5px;' width='215' height='13' valign='middle'>$data[nama_barang]</td>
-                        <td style='padding-left:5px;' width='150' height='13' valign='middle'>$data[nama_jenis]</td>
-                        <td style='padding-right:10px;' width='80' height='13' align='right' valign='middle'>$data[stok]</td>
-                        <td style='padding-left:5px;' width='80' height='13' valign='middle'>$data[nama_satuan]</td>
-                    </tr>";
-            $no++;
-        }
-        ?>  
-                </tbody>
-            </table>
 
-            <div id="footer-tanggal">
-                Bandarlampung, <?php echo tgl_eng_to_ind("$hari_ini"); ?>
-            </div>
-            <div id="footer-jabatan">
-                Pimpinan
-            </div>
-            
-            <div id="footer-nama">
-                Indra Setyawantoro, S.Kom.
-            </div>
-        </div>
-    </body>
-</html><!-- Akhir halaman HTML yang akan di konvert -->
-<?php
-$filename="LAPORAN STOK BARANG GUDANG MATERIAL.pdf"; //ubah untuk menentukan nama file pdf yang dihasilkan nantinya
-//==========================================================================================================
-$content = ob_get_clean();
-$content = '<page style="font-family: freeserif">'.($content).'</page>';
-// panggil library html2pdf
-require_once('../../assets/plugins/html2pdf_v4.03/html2pdf.class.php');
-try
-{
-    $html2pdf = new HTML2PDF('P','F4','en', false, 'ISO-8859-15',array(10, 10, 10, 10));
-    $html2pdf->setDefaultFont('Arial');
-    $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-    $html2pdf->Output($filename);
 }
-catch(HTML2PDF_exception $e) { echo $e; }
+
+$pdf->Output();
 ?>

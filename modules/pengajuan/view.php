@@ -6,9 +6,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css" />
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
-        
+
 </head>
 
 <body>
@@ -57,8 +58,7 @@
               <h4>  <i class='icon fa fa-check-circle'></i> Sukses!</h4>
               Data barang berhasil dihapus.
             </div>";
-                                }
-                                elseif ($_GET['alert'] == 4) {
+                                } elseif ($_GET['alert'] == 4) {
                                         echo "<div class='alert alert-success alert-dismissable'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
               <h4>  <i class='icon fa fa-check-circle'></i> Sukses!</h4>
@@ -87,12 +87,12 @@
                                                         <!-- tampilan tabel body -->
                                                         <tbody>
                                                                 <?php
-                                                                $by_user = ($_SESSION['hak_akses'] != "Super Admin")? " WHERE a.id_user = ".$_SESSION['id_user']: null;
+                                                                $by_user = ($_SESSION['hak_akses'] != "Super Admin") ? " WHERE a.id_user = " . $_SESSION['id_user'] : null;
 
                                                                 $no = 1;
                                                                 $query = mysqli_query($mysqli, "SELECT a.id, a.id_barang,a.jumlah,a.nama_satuan,a.alasan,a.tanggal_pengajuan,a.is_approve,b.nama_barang, c.nama_user
                                             FROM pengajuan as a INNER JOIN is_barang as b    
-                                            ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user=c.id_user ".$by_user." ORDER BY id_barang DESC")            // fungsi query untuk menampilkan data dari tabel barang
+                                            ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user=c.id_user " . $by_user . " ORDER BY id_barang DESC")            // fungsi query untuk menampilkan data dari tabel barang
 
                                                                         or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
 
@@ -107,11 +107,11 @@
                                                                         //         array_push($isapp, "Approve");
                                                                         // }
                                                                         // $approve = implode("", $isapp);
-                                                                $approve = ($data['is_approve']==0)?"Not Approved":"Approved";
-                                                                
-                                                                if($_SESSION['hak_akses'] == 'Super Admin'){
-                                                                        $approve = ($data['is_approve']==0)?"<a href='modules/pengajuan/proses.php?act=setuju&id_pengajuan=$data[id]' class='btn btn-success'>Setujui</a>":"Sudah disetujui";
-                                                                }                                                                        // menampilkan isi tabel dari database ke tabel di aplikasi
+                                                                        $approve = ($data['is_approve'] == 0) ? "Not Approved" : "Approved";
+
+                                                                        if ($_SESSION['hak_akses'] == 'Super Admin') {
+                                                                                $approve = ($data['is_approve'] == 0) ? "<a href='modules/pengajuan/proses.php?act=setuju&id_pengajuan=$data[id]' class='btn btn-success'>Setujui</a>" : "Sudah disetujui";
+                                                                        }                                                                        // menampilkan isi tabel dari database ke tabel di aplikasi
                                                                         echo "<tr>
                       <td width='30' class='center'>$no</td>
                       <td width='80' class='center'>$data[id_barang]</td>
@@ -130,9 +130,25 @@
                                                 </table>
                                         </div><!-- /.box-body -->
                                 </div>
+                        </div>
+                </div>
+        </section>
+        <!-- Selesai Section -->
+
+        <!-- Section Baru -->
+        <section class="content-header" x-data="{open : false}">
+                <h1>
+                        <i class="fa fa-folder-o icon-title"></i>Pengajuan Barang Baru
+                        <button class="btn btn-primary pull-right btn-social dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="open = true" >
+                                <i class="fa fa-print"></i> Cetak
+                        </button>
+                </h1>
+        </section>
+        <section class="content">
+                <div class="row">
+                        <div class="col-md-12">
                                 <div class="box box-primary">
                                         <div class="box-body">
-                                                <h3>Pengajuan Barang Baru</h3>
                                                 <!-- tampilan tabel barang -->
                                                 <table id="dataTables2" class="table table-bordered table-striped table-hover">
                                                         <!-- tampilan tabel header -->
@@ -151,7 +167,7 @@
                                                         <tbody>
                                                                 <?php
                                                                 $no = 1;
-                                                                $query = mysqli_query($mysqli, "SELECT a.*, b.nama_user FROM pengajuan_baru as a INNER JOIN is_users as b ON a.id_user = b.id_user".$by_user." ORDER BY id DESC")            // fungsi query untuk menampilkan data dari tabel barang
+                                                                $query = mysqli_query($mysqli, "SELECT a.*, b.nama_user FROM pengajuan_baru as a INNER JOIN is_users as b ON a.id_user = b.id_user" . $by_user . " ORDER BY id DESC")            // fungsi query untuk menampilkan data dari tabel barang
 
                                                                         or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
 
@@ -160,11 +176,11 @@
 
                                                                         $a = date("Y-m-d", strtotime($data['tanggal_pengajuan']));
                                                                         // $isapp = [];
-                                                                        $approve = ($data['is_approve']==0)?"Not Approved":"Approved";
-                                                                
-                                                                        if($_SESSION['hak_akses'] == 'Super Admin'){
-                                                                                $approve = ($data['is_approve']==0)?"<a href='modules/pengajuan/proses.php?act=setuju_baru&id_pengajuan=$data[id]' class='btn btn-success'>Setujui</a>":"Sudah disetujui";
-                                                                        } 
+                                                                        $approve = ($data['is_approve'] == 0) ? "Not Approved" : "Approved";
+
+                                                                        if ($_SESSION['hak_akses'] == 'Super Admin') {
+                                                                                $approve = ($data['is_approve'] == 0) ? "<a href='modules/pengajuan/proses.php?act=setuju_baru&id_pengajuan=$data[id]' class='btn btn-success'>Setujui</a>" : "Sudah disetujui";
+                                                                        }
                                                                         // menampilkan isi tabel dari database ke tabel di aplikasi
                                                                         echo "<tr>
                                                                                 <td width='30' class='center'>$no</td>
@@ -183,14 +199,20 @@
                                         </div><!-- /.box-body -->
                                 </div><!-- /.box -->
                         </div>
-                        <!--/.col -->
-                </div> <!-- /.row -->
-        </section>
+                </div>
+                <!--/.col -->
+        </section><!-- /.row -->
 
         <script>
                 $(document).ready(function() {
-                        $('table').DataTable({
+                        $('#dataTables1').DataTable({
                                 "scrollX": true
+                        });
+                });
+                $(document).ready(function() {
+                        $('#dataTables2').DataTable({
+                                "scrollX": true,
+                                "search": true
                         });
                 });
         </script>

@@ -1,12 +1,9 @@
 <?php
 // deklarasi parameter koneksi database
-$server   = "localhost";
-$username = "pma";
-$password = "123";
-$database = "i_persediaan";
+
 
 // koneksi database
-$mysqli = new mysqli($server, $username, $password, $database);
+$mysqli = new mysqli("localhost","root","","i_persediaan");
 
 // cek koneksi
 if ($mysqli->connect_error) {
