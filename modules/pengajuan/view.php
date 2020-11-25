@@ -139,9 +139,17 @@
         <section class="content-header" x-data="{open : false}">
                 <h1>
                         <i class="fa fa-folder-o icon-title"></i>Pengajuan Barang Baru
-                        <button class="btn btn-primary pull-right btn-social dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="open = true" >
-                                <i class="fa fa-print"></i> Cetak
-                        </button>
+                        <div class="dropdown pull-right">
+
+                                <button class="btn btn-primary pull-right btn-social dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-print"></i> Cetak
+                                </button>
+
+                                <div class="dropdown-menu block" >
+                                        <a class="dropdown-item" href="modules/lap-stok/cetak.php" target="_blank">PDF</a>
+                                        <a class="dropdown-item" href="https://www.malasngoding.com/category/bootstrap-4">Excel</a>
+                                </div>
+                        </div>
                 </h1>
         </section>
         <section class="content">
