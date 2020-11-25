@@ -110,6 +110,8 @@ ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user whe
                 </tbody>
                 
               </table>
+
+              
               <?php
                 }
               ?>
@@ -164,6 +166,20 @@ ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user whe
         </div><!-- /.box -->
       </div>
     </div>
+  <div class="row">
+    <div class="col-lg-12 col-xs-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            Barang Keluar pada Bulan <?php echo date("M") ?>
+          </h3>
+        </div>
+        <div class="box-body">
+        <canvas id="myChart" width="400" height="150"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-lg-12 col-xs-12">
@@ -239,3 +255,45 @@ ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user whe
                         $('#dataTables1').DataTable();
                 });
         </script>
+
+<?php
+if($_SESSION['hak_akses'] == 'Super Admin'){
+  $query=mysqli_query($mysqli, "SELECT is_barang_keluar.id_barang, sum(is_barang_keluar.jumlah_keluar) as jumlah, is_barang.nama_barang FROM is_barang_keluar inner join is_barang on is_barang_keluar.id_barang = is_barang.id_barang where month(is_barang_keluar.tanggal_keluar)= month(current_timestamp()) group by is_barang_keluar.id_barang")  or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
+  $nama_barang = array();
+  $jumlah = array();
+
+  while ($data = mysqli_fetch_assoc($query)) {
+    array_push($nama_barang, "'".$data["nama_barang"]."'");
+    array_push($jumlah, $data["jumlah"]);
+  }
+// var_dump($nama_barang);
+?>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<script>
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<?php echo implode(",", $nama_barang);?>],
+        datasets: [{
+            label: '# Jumlah Barang Keluar',
+            data: [<?php echo implode(",", $jumlah); ?>],
+            backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+<?php
+}
+?>
