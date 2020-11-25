@@ -146,7 +146,7 @@
                                 </button>
 
                                 <div class="dropdown-menu block" >
-                                        <a class="dropdown-item" href="modules/lap-stok/cetak.php" target="_blank">PDF</a>
+                                        <a class="dropdown-item" href="modules/pengajuan/cetak.php" target="_blank">PDF</a>
                                         <a class="dropdown-item" href="https://www.malasngoding.com/category/bootstrap-4">Excel</a>
                                 </div>
                         </div>
