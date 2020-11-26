@@ -27,7 +27,6 @@
 
       <!-- Form Laporan -->
       <div class="box box-primary">
-      <a href="?module=chart">Chart</a>
         <!-- form start -->
         <form role="form" class="form-horizontal" method="GET" action="modules/lap-barang-keluar/cetak.php" target="_blank">
           <div class="box-body">
