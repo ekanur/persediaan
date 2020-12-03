@@ -3,7 +3,7 @@
 
 
 // koneksi database
-$mysqli = new mysqli("localhost","root","","i_persediaan");
+$mysqli = new mysqli("localhost","pma","123","i_persediaan");
 
 // cek koneksi
 if ($mysqli->connect_error) {

@@ -10,7 +10,7 @@ $newDate1 = date("Y-m-d", strtotime($orgDate1));
 if (isset($_GET['tgl_awal'])) {
     
 // memanggil library FPDF
-require('/opt/lampp/htdocs/persediaan/fpdf182/fpdf.php');
+require('../../fpdf182/fpdf.php');
 // intance object dan memberikan pengaturan halaman PDF
 $pdf = new FPDF('l','mm','A5');
 // membuat halaman baru
@@ -34,7 +34,7 @@ $pdf->Cell(40,6,'TANGGAL KELUAR',1,1);
 
 $pdf->SetFont('Arial','',10);
 $no = 1;
-include '/opt/lampp/htdocs/persediaan/config/database.php';
+include '../../config/database.php';
 $mahasiswa = mysqli_query($mysqli, "SELECT *,is_barang.nama_barang FROM `is_barang_keluar` INNER JOIN is_barang ON is_barang_keluar.id_barang = is_barang.id_barang WHERE tanggal_keluar BETWEEN '".$newDate."' AND '".$newDate1."'");
 while ($row = mysqli_fetch_array($mahasiswa)){
     $pdf->Cell(10,6,$no++,1,0);
