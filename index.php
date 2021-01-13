@@ -60,19 +60,19 @@ ON a.id_jenis=b.id_jenis AND a.id_satuan=c.id_satuan ORDER BY id_barang DESC");
           <th>Stok</th>
           <th>Satuan</th>
         </tr>
+        </thead>
+      <tbody>
         <?php
         $no = 1;
         while ($row = mysqli_fetch_assoc($query)) {
           echo "
-          </thead>
-          <tbody>
             <tr>
-              <td>$no</td>
-              <td>$row[id_barang]</td>
-              <td>$row[nama_barang]</td>
-              <td>$row[nama_jenis]</td>
-              <td>$row[stok]</td>
-              <td>$row[nama_satuan]</td>
+              <td width='1%'>$no</td>
+              <td width='5%'>$row[id_barang]</td>
+              <td width='55%'>$row[nama_barang]</td>
+              <td width='24%'>$row[nama_jenis]</td>
+              <td width='5%'>$row[stok]</td>
+              <td width='5%'>$row[nama_satuan]</td>
             </tr>";
 
         ?>

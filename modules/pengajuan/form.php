@@ -54,13 +54,12 @@ $row = mysqli_fetch_assoc($query);
                         <div x-data="{stok:''}" class="form-group">
                             <label class="col-sm-2">Jumlah Barang</label>
                             <div class="col-sm-3">
-                                <input x-model="stok" type="number" class="form-control" name="jumlah" min="1" max="<?= $row['stok'] ?>" placeholder="Stok Saat Ini  <?php echo $row['stok']; ?> <?php echo $row['nama_satuan']; ?>" max="<?php echo $row['stok']; ?>" aria-describedby="basic-addon2">
+                                <input x-model="stok" required type="number" class="form-control" name="jumlah" min="1" max="<?= $row['stok'] ?>" placeholder="Stok Saat Ini  <?php echo $row['stok']; ?> <?php echo $row['nama_satuan']; ?>" max="<?php echo $row['stok']; ?>" aria-describedby="basic-addon2">
                             </div>
-                            <label class="col-sm-1">Stok</label>
-                            <div class="col-sm-2 ">
-                                    <p x-text="<?= $row['stok'] ?> - stok"><?php echo $row['nama_satuan']; ?></p>
-                                    <p> </p><?= $row['nama_satuan']; ?>
-                            </div>
+                            <label class="col-sm-4">Stok Sisa :  <p x-text="<?= $row['stok'] ?> - stok"><?php echo $row['nama_satuan']; ?></p>
+                                    <?= $row['nama_satuan']; ?></label>
+                            
+                                    
                             <!-- <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2"></span>
                             </div> -->

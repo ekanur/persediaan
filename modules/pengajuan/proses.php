@@ -57,14 +57,30 @@ else {
         }
     }
     elseif($_GET['act'] == "setuju"){
-        $id = $_GET["id_pengajuan"];
+        $id = $_POST["id_pengajuan"];
+        $id_barang = $_POST["id_barang"];
+        $stok = $_POST["stok"];
+        $jumlah_pengajuan = $_POST["jumlah_pengajuan"];
+        $sisa_stok = $stok-$jumlah_pengajuan;
+
         $query = mysqli_query($mysqli, "update pengajuan set is_approve = 1 where id = ".$id)
-                or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
+                or die('Ada kesalahan pada query : ' . mysqli_error($mysqli));
 
             // cek query
             if ($query) {
+                // perintah query untuk mengubah data pada tabel barang
+                $query1 = mysqli_query($mysqli, "UPDATE is_barang SET stok      = '$sisa_stok'
+                                                                WHERE id_barang = '$id_barang'")
+                                                or die('Ada kesalahan pada query update : '.mysqli_error($mysqli));
+
+                // cek query
+                if ($query1) {                       
+                    // jika berhasil tampilkan pesan berhasil simpan data
+                    header("location: ../../main.php?module=pengajuan&alert=2");
+                }
+            
                 // jika berhasil tampilkan pesan berhasil simpan data
-                header("location: ../../main.php?module=pengajuan&alert=4");
+                // header("location: ../../main.php?module=pengajuan&alert=4");
             }
     }
     elseif($_GET['act'] == "setuju_baru"){

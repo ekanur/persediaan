@@ -214,6 +214,7 @@ session_start();
           "bInfo": true,
           "bAutoWidth": false
         });
+        $('table').dataTable();
       });
     </script>
 

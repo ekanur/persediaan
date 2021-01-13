@@ -50,6 +50,7 @@
           </div>
           <div class="box-body">
             <div class="table-responsive">
+            
               <!-- tampilan tabel barang -->
               <?php
                 if ($_SESSION['hak_akses']=='Super Admin') {
@@ -71,39 +72,33 @@
                 <tbody>
                 <?php
               $no = 1;
-              $query = mysqli_query($mysqli, "SELECT a.id, a.id_barang,a.jumlah,a.nama_satuan,a.alasan,a.tanggal_pengajuan,a.is_approve,b.nama_barang, c.nama_user
+              $query = mysqli_query($mysqli, "SELECT a.id, a.id_barang,a.jumlah,a.nama_satuan,a.alasan,a.tanggal_pengajuan,a.is_approve,b.nama_barang, b.stok, c.nama_user
 FROM pengajuan as a INNER JOIN is_barang as b    
 ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user where a.is_approve =0 ORDER BY id_barang DESC")            // fungsi query untuk menampilkan data dari tabel barang
 
                       or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
-              if(mysqli_num_rows($query) == 0){
-                ?>
-                <tr>
-                  <td colspan="7" class="text-center">Tidak ada pengajuan Barang</td>
-                </tr>
-                <?php
-              }
+              
               // tampilkan data
               while ($data = mysqli_fetch_assoc($query)) {
 
                       $a = date("Y-m-d", strtotime($data['tanggal_pengajuan']));
-                      // $isapp = [];
-                      // if ($data['is_approve'] == 0) {
-                      //         array_push($isapp, "Not Approve");
-                      // } elseif ($data['is_approve'] == 1) {
-                      //         array_push($isapp, "Approve");
-                      // }
-                      // $approve = implode("", $isapp);
-                      // menampilkan isi tabel dari database ke tabel di aplikasi
+                      
+                      $tombol = '<form action="modules/pengajuan/proses.php?act=setuju" method="post">
+                                  <input type="hidden" name="stok" value= '.$data['stok'].'>
+                                  <input type="hidden" name="id_pengajuan" value= '.$data['id'].'>
+                                  <input type="hidden" name="id_barang" value= '.$data['id_barang'].'>
+                                  <input type="hidden" name="jumlah_pengajuan" value= '.$data['jumlah'].'>
+                                  <input type="submit" value="Setujui" class="btn btn-success">
+                                </form>';
                       echo "<tr>
-<td width='30' class='center'>$no</td>
-<td width='80' class='center'>$data[nama_user]</td>
-<td width='180'>$data[nama_barang]</td>
-<td width='150'>$data[jumlah] $data[nama_satuan]</td>
-<td width='150'>$data[alasan]</td>
-<td width='150'>$a</td>
-<td><a class='btn btn-success' href='?module=pengajuan&act=setujui&id=$data[id]'>Setujui</a></td>
-</tr>";
+                            <td width='30' class='center'>$no</td>
+                            <td width='80' class='center'>$data[nama_user]</td>
+                            <td width='180'>$data[nama_barang]</td>
+                            <td width='150'>$data[jumlah] $data[nama_satuan]</td>
+                            <td width='150'>$data[alasan]</td>
+                            <td width='150'>$a</td>
+                            <td>".$tombol."</td>
+                            </tr>";
                       $no++;
               }
               ?>
@@ -138,15 +133,16 @@ ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user whe
                 $query = mysqli_query($mysqli, "SELECT is_barang.*, is_satuan.nama_satuan  from is_barang inner join is_satuan on is_barang.id_satuan = is_satuan.id_satuan ORDER BY id_barang DESC")
                   or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
 
-                // tampilkan data
+                $tombol = "Stok 0";
                 while ($data = mysqli_fetch_assoc($query)) {
                   // menampilkan isi tabel dari database ke tabel di aplikasi
+                  $tombol = ($data['stok']!=0)? "<a href='?module=form_pengajuan&id=$data[id_barang]' class='btn btn-info'>Ajukan</a>":"Stok 0";
                   echo "<tr>
                           <td width='20' class='center'>$no</td>
                           <td width='80' class='center'>$data[id_barang]</td>
                           <td width='150'>$data[nama_barang]</td>
                           <td width='80'>$data[stok] $data[nama_satuan]</td>
-                          <td width='100'><a href='?module=form_pengajuan&id=$data[id_barang]' class='btn btn-info'>Ajukan</a></td>
+                          <td width='100'>".$tombol."</td>
                         </tr>";
                   $no++;
                 }
@@ -181,80 +177,10 @@ ON a.id_barang=b.id_barang INNER JOIN is_users as c on a.id_user = c.id_user whe
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-lg-12 col-xs-12">
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title"><i class="fa fa-info-circle icon-title"></i> Stok Barang telah mencapai batas minimum</h3>
-          <div class="box-tools pull-right">
-            <button class="btn btn-box-tool" data-widget="collapse">
-              <i class="fa fa-minus"></i>
-            </button>
-            <button class="btn btn-box-tool" data-widget="remove">
-              <i class="fa fa-times"></i>
-            </button>
-          </div>
-        </div>
-        <div class="box-body">
-          <div class="table-responsive">
-            <!-- tampilan tabel barang -->
-            <table class="table no-margin">
-              <!-- tampilan tabel header -->
-              <thead>
-                <tr>
-                  <th class="center">No.</th>
-                  <th class="center">ID Barang</th>
-                  <th>Nama Barang</th>
-                  <th>Jenis Barang</th>
-                  <th>Stok</th>
-                  <th>Satuan</th>
-                </tr>
-              </thead>
-              <!-- tampilan tabel body -->
-              <tbody>
-                <?php
-                $no = 1;
-                // fungsi query untuk menampilkan data dari tabel barang
-                $query = mysqli_query($mysqli, "SELECT a.id_barang,a.nama_barang,a.id_jenis,a.id_satuan,a.stok,b.id_jenis,b.nama_jenis,c.id_satuan,c.nama_satuan 
-                                                FROM is_barang as a INNER JOIN is_jenis_barang as b INNER JOIN is_satuan as c
-                                                ON a.id_jenis=b.id_jenis AND a.id_satuan=c.id_satuan 
-                                                WHERE a.stok<=10 ORDER BY id_barang DESC")
-                  or die('Ada kesalahan pada query tampil Data Barang: ' . mysqli_error($mysqli));
-
-                // tampilkan data
-                while ($data = mysqli_fetch_assoc($query)) {
-                  // menampilkan isi tabel dari database ke tabel di aplikasi
-                  echo "<tr>
-                          <td width='20' class='center'>$no</td>
-                          <td width='80' class='center'>$data[id_barang]</td>
-                          <td width='150'>$data[nama_barang]</td>
-                          <td width='100'>$data[nama_jenis]</td>
-                          <td width='80'>$data[stok]</td>
-                          <td width='100'>$data[nama_satuan]</td>
-                        </tr>";
-                  $no++;
-                }
-                ?>
-              </tbody>
-            </table>
-          </div>
-        </div><!-- /.box-body -->
-      </div><!-- /.box -->
-    </div>
-  </div>
+  
   
 </section><!-- /.content -->
 
-<script>
-                $(document).ready(function() {
-                        $('#dataTables1').DataTable({
-                                "scrollX": true
-                        });
-                });
-                $(document).ready(function() {
-                        $('#dataTables1').DataTable();
-                });
-        </script>
 
 <?php
 if($_SESSION['hak_akses'] == 'Super Admin'){

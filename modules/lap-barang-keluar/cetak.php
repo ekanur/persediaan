@@ -35,8 +35,8 @@ $pdf->Cell(40,6,'TANGGAL KELUAR',1,1);
 $pdf->SetFont('Arial','',10);
 $no = 1;
 include '../../config/database.php';
-$mahasiswa = mysqli_query($mysqli, "SELECT *,is_barang.nama_barang FROM `is_barang_keluar` INNER JOIN is_barang ON is_barang_keluar.id_barang = is_barang.id_barang WHERE tanggal_keluar BETWEEN '".$newDate."' AND '".$newDate1."'");
-while ($row = mysqli_fetch_array($mahasiswa)){
+$barang_keluar = mysqli_query($mysqli, "SELECT *,is_barang.nama_barang FROM `pengajuan` INNER JOIN is_barang ON pengajuan.id_barang = is_barang.id_barang WHERE tanggal_keluar BETWEEN '".$newDate."' AND '".$newDate1."'");
+while ($row = mysqli_fetch_array($barang_keluar)){
     $pdf->Cell(10,6,$no++,1,0);
     $pdf->Cell(40,6,$row['id_barang_keluar'],1,0);
     $pdf->Cell(40,6,$row['nama_barang'],1,0);
