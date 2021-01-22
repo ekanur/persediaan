@@ -93,7 +93,7 @@ if ($_SESSION['hak_akses']=='Super Admin') { ?>
           	</a>
       		<ul class="treeview-menu">
         		<li class="active"><a href="?module=barang_masuk"><i class="fa fa-circle-o"></i> Barang Masuk</a></li>
-        		<li><a href="?module=barang_keluar"><i class="fa fa-circle-o"></i> Barang Keluar</a></li>
+        		<!-- <li><a href="?module=barang_keluar"><i class="fa fa-circle-o"></i> Barang Keluar</a></li> -->
       		</ul>
     	</li>
     <?php
@@ -106,7 +106,7 @@ if ($_SESSION['hak_akses']=='Super Admin') { ?>
           	</a>
       		<ul class="treeview-menu">
         		<li><a href="?module=barang_masuk"><i class="fa fa-circle-o"></i> Barang Masuk</a></li>
-        		<li class="active"><a href="?module=barang_keluar"><i class="fa fa-circle-o"></i> Barang Keluar</a></li>
+        		<!-- <li class="active"><a href="?module=barang_keluar"><i class="fa fa-circle-o"></i> Barang Keluar</a></li> -->
       		</ul>
     	</li>
     <?php
@@ -119,7 +119,7 @@ if ($_SESSION['hak_akses']=='Super Admin') { ?>
           	</a>
       		<ul class="treeview-menu">
         		<li><a href="?module=barang_masuk"><i class="fa fa-circle-o"></i> Barang Masuk</a></li>
-        		<li><a href="?module=barang_keluar"><i class="fa fa-circle-o"></i> Barang Keluar</a></li>
+        		<!-- <li><a href="?module=barang_keluar"><i class="fa fa-circle-o"></i> Barang Keluar</a></li> -->
       		</ul>
     	</li>
     <?php
@@ -134,7 +134,7 @@ if ($_SESSION['hak_akses']=='Super Admin') { ?>
       		<ul class="treeview-menu">
         		<li class="active"><a href="?module=lap_stok"><i class="fa fa-circle-o"></i> Stok Barang</a></li>
         		<li><a href="?module=lap_barang_masuk"><i class="fa fa-circle-o"></i> Barang Masuk</a></li>
-        		<li><a href="?module=lap_barang_keluar"><i class="fa fa-circle-o"></i> Barang Keluar</a></li>
+        		<!-- <li><a href="?module=lap_barang_keluar"><i class="fa fa-circle-o"></i> Barang Keluar</a></li> -->
       		</ul>
     	</li>
     <?php
