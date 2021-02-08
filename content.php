@@ -145,5 +145,9 @@ else {
 	elseif ($_GET['module'] == 'chart') {
 		include "modules/lap-barang-keluar/chart.php";
 	}
+
+	elseif ($_GET['module'] == 'import') {
+		include "modules/barang-masuk/form_import.php";
+	}
 }
 ?>

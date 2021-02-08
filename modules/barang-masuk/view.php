@@ -3,6 +3,7 @@
   <h1>
     <i class="fa fa-sign-in icon-title"></i> Data Barang Masuk
 
+    
     <a class="btn btn-primary btn-social pull-right" href="?module=form_barang_masuk&form=add" title="Tambah Data" data-toggle="tooltip">
       <i class="fa fa-plus"></i> Tambah
     </a>

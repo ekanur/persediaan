@@ -92,8 +92,20 @@ if ($_SESSION['hak_akses']=='Super Admin') { ?>
             	<i class="fa fa-clone"></i> <span>Transaksi</span> <i class="fa fa-angle-left pull-right"></i>
           	</a>
       		<ul class="treeview-menu">
-        		<li class="active"><a href="?module=barang_masuk"><i class="fa fa-circle-o"></i> Barang Masuk</a></li>
-        		<!-- <li><a href="?module=barang_keluar"><i class="fa fa-circle-o"></i> Barang Keluar</a></li> -->
+        		<li><a href="?module=import&form=add"><i class="fa fa-circle-o"></i> Import Barang Baru</a></li>
+        		<li class="active"><a href="?module=barang_masuk"><i class="fa fa-circle-o"></i> Update Stok</a></li>
+      		</ul>
+    	</li>
+    <?php
+	}
+	elseif ($_GET["module"]=="import") { ?>
+		<li class="active treeview">
+          	<a href="javascript:void(0);">
+            	<i class="fa fa-clone"></i> <span>Transaksi</span> <i class="fa fa-angle-left pull-right"></i>
+          	</a>
+      		<ul class="treeview-menu">
+        		<li class="active"><a href="?module=import&form=add"><i class="fa fa-circle-o"></i> Import Barang Baru</a></li>
+        		<li><a href="?module=barang_masuk"><i class="fa fa-circle-o"></i> Update Stok</a></li>
       		</ul>
     	</li>
     <?php
@@ -105,8 +117,8 @@ if ($_SESSION['hak_akses']=='Super Admin') { ?>
             	<i class="fa fa-clone"></i> <span>Transaksi</span> <i class="fa fa-angle-left pull-right"></i>
           	</a>
       		<ul class="treeview-menu">
-        		<li><a href="?module=barang_masuk"><i class="fa fa-circle-o"></i> Barang Masuk</a></li>
-        		<!-- <li class="active"><a href="?module=barang_keluar"><i class="fa fa-circle-o"></i> Barang Keluar</a></li> -->
+        		<li><a href="?module=import&form=add"><i class="fa fa-circle-o"></i> Import Barang Baru</a></li>
+        		<li class="active"><a href="?module=barang_masuk"><i class="fa fa-circle-o"></i> Update Stok</a></li>
       		</ul>
     	</li>
     <?php
@@ -118,8 +130,8 @@ if ($_SESSION['hak_akses']=='Super Admin') { ?>
             	<i class="fa fa-clone"></i> <span>Transaksi</span> <i class="fa fa-angle-left pull-right"></i>
           	</a>
       		<ul class="treeview-menu">
-        		<li><a href="?module=barang_masuk"><i class="fa fa-circle-o"></i> Barang Masuk</a></li>
-        		<!-- <li><a href="?module=barang_keluar"><i class="fa fa-circle-o"></i> Barang Keluar</a></li> -->
+        		<li><a href="?module=import&form=add"><i class="fa fa-circle-o"></i> Import Barang Baru</a></li>
+        		<li class="active"><a href="?module=barang_masuk"><i class="fa fa-circle-o"></i> Update Stok</a></li>
       		</ul>
     	</li>
     <?php

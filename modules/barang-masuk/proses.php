@@ -47,5 +47,35 @@ else {
             }   
         }   
     }
+    elseif($_GET['act']=='import'){
+            
+            require_once '../../spreadsheet-reader/php-excel-reader/excel_reader2.php';
+            require_once '../../spreadsheet-reader/SpreadsheetReader.php';
+
+            //upload data excel kedalam folder uploads
+            // var_dump(basename($_FILES['file']['name']));exit;
+            // echo exec('whoami');exit;
+            $target_dir = "../../uploads/".basename($_FILES['file']['name']);
+            $is_uploaded = move_uploaded_file($_FILES['file']['tmp_name'],$target_dir);
+            // var_dump($is_uploaded);exit;
+            
+            $Reader = new SpreadsheetReader($target_dir);
+
+            foreach ($Reader as $Key => $Row)
+            {
+            // import data excel mulai baris ke-2 (karena ada header pada baris 1)
+            if ($Key < 1) continue;   
+                $query=mysqli_query($mysqli, "INSERT INTO is_barang(id_barang,nama_barang,id_jenis,id_satuan, stok, created_user) VALUES ('".$Row[0]."', '".$Row[1]."','18', '10','".$Row[2]."','".$_SESSION['id_user']."')");
+            }
+            $path = realpath($target_dir); if(is_writable($path)){unlink($path);}
+            // var_export($path);exit;
+            if (!$query) {
+                echo mysqli_error($mysqli);
+                exit;
+            }
+
+            header("location: ../../main.php?module=barang_masuk&alert=1");
+         
+    }
 }       
 ?>
